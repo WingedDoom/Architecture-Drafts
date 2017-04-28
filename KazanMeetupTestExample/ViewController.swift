@@ -8,18 +8,55 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
+    var personList = [PersonModel]()
+    var presentablePersonList: [ViewConfig]!
+    var customView: View!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        generateTemplateData()
+        customView.contactsTableView.dataSource = self
+        
+        presentablePersonList = [ViewConfig]()
+        for person in personList {
+            presentablePersonList.append(ViewConfig(model: person))
+        }
+        customView.configure(data: presentablePersonList)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func generateTemplateData() {
+        personList.append(PersonModel(name: "Ренат", birthDate: Date()))
+        personList.append(PersonModel(name: "Булат", birthDate: Date()))
+        personList.append(PersonModel(name: "Илья", birthDate: Date()))
+        personList.append(PersonModel(name: "Никита", birthDate: Date()))
     }
-
-
+    
+    override func loadView() {
+        let ourCustomView = View()
+        
+        // не кастить
+        self.customView = ourCustomView
+        
+        self.view = ourCustomView
+    }
+    
+    
+    // MARK: - Table data source
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return personList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! PersonTableViewCell
+        
+        cell.configure(config: presentablePersonList[indexPath.row])
+        
+        return cell
+    }
 }
 
