@@ -12,7 +12,7 @@ class PersonTableViewCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var birthDateLabel: UILabel!
     
-    func configure(config: ViewConfig) {
+    func configure(config: ContactsViewConfig) {
         nameLabel.text = config.name
         birthDateLabel.text = config.birthDateString
     }

@@ -9,36 +9,52 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource {
-    var personList = [PersonModel]()
-    var presentablePersonList: [ViewConfig]!
-    var customView: View!
+    let dataService = DataFetchService()
+
+    var personList: [PersonModel]!
+    var presentablePersonList: [ContactsViewConfig]!
+    var customView: СontactsView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        generateTemplateData()
-        customView.contactsTableView.dataSource = self
-        
-        presentablePersonList = [ViewConfig]()
+
+        configureData()
+        configureView()
+        setAppeared()
+    }
+
+    func configureData() {
+        // fetch data from the service
+        personList = dataService.generateTemplateData()
+
+        // make it understandable for the view, i.e. don't let the view know about your models
+        presentablePersonList = [ContactsViewConfig]()
         for person in personList {
-            presentablePersonList.append(ViewConfig(model: person))
+            presentablePersonList.append(ContactsViewConfig(model: person))
         }
+
+        // pass it to the view
         customView.configure(data: presentablePersonList)
     }
-    
-    func generateTemplateData() {
-        personList.append(PersonModel(name: "Ренат", birthDate: Date()))
-        personList.append(PersonModel(name: "Булат", birthDate: Date()))
-        personList.append(PersonModel(name: "Илья", birthDate: Date()))
-        personList.append(PersonModel(name: "Никита", birthDate: Date()))
+
+    func configureView() {
+        customView.contactsTableView.dataSource = self
     }
     
     override func loadView() {
-        let ourCustomView = View()
+        // If I didn't use storyboards, I would use this method to set the view property to my custom view.
+//        let ourCustomView = СontactsView()
+//        view = ourCustomView
         
-        // не кастить
-        self.customView = ourCustomView
+        // But I use storyboards, so it has been set to custom view already.
+        super.loadView()
         
-        self.view = ourCustomView
+        // just for convenience
+        customView = view as! СontactsView
+        
+        // since our view is created through storyboards, we have to configure it here
+        // it may be configured within the view's constructors otherwise
+        customView.configureSubviews()
     }
     
     

@@ -1,5 +1,5 @@
 //
-//  ViewConfig.swift
+//  ContactsViewConfig.swift
 //  KazanMeetupTestExample
 //
 //  Created by Bulat Khabirov on 11.03.17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ViewConfig {
+struct ContactsViewConfig {
     let name: String
     let birthDateString: String
     

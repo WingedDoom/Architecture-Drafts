@@ -17,7 +17,7 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="СontactsView" customModule="KazanMeetupTestExample" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -64,6 +64,10 @@
                             <constraint firstAttribute="trailing" secondItem="9aU-hw-ioL" secondAttribute="trailing" id="NgP-PF-vY4"/>
                             <constraint firstItem="9aU-hw-ioL" firstAttribute="top" secondItem="HJy-Gj-9K1" secondAttribute="bottom" constant="8" id="Sre-x5-Q9K"/>
                         </constraints>
+                        <connections>
+                            <outlet property="contactsCountLabel" destination="KXt-19-qJR" id="idp-LC-OtH"/>
+                            <outlet property="contactsTableView" destination="9aU-hw-ioL" id="ppZ-jj-dNN"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
